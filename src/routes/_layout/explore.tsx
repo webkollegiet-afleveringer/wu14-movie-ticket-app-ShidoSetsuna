@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_layout/explore')({
 function Explore() {
   return (
     <div>
-      <Header back title="Explore Movies" search/>
+      <Header back title="Explore Movies" search />
       <h3>Hello from Explore!</h3>
     </div>
   )

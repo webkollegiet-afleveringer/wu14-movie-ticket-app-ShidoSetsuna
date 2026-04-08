@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRouter } from '@tanstack/react-router';
 import SearchTool from './search';
 import ProfileIcon from './profile-icon';
@@ -12,24 +13,31 @@ interface HeaderProps {
   bookmark?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({title, search, welcome, profile, back, bookmark}) => {
+const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, bookmark }) => {
   const router = useRouter();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <header className="flex items-center justify-between p-4 h-16">
-      {welcome && <p>Welcome back, <h2>{welcome}</h2></p>}
-      {back && (
-        <button onClick={() => router.history.back()}>
-          <ArrowLeft />
-        </button>
-      )}
+    <header className="relative flex items-center justify-between p-4 h-16">
 
-      {title && (<h1 className="absolute left-1/2 -translate-x-1/2">{title}</h1>)}
+      {/* Left side */}
+      <div>
+        {back && (
+          <button onClick={() => router.history.back()}>
+            <ArrowLeft />
+          </button>
+        )}
+        {welcome && <p>Welcome back, <span className="font-bold">{welcome}</span></p>}
+      </div>
 
-      <div className="flex gap-2">
+      {/* Center */}
+      {title && <h1 className="absolute left-1/2 -translate-x-1/2">{title}</h1>}
+
+      {/* Right side */}
+      <div className="flex gap-2 items-center">
         {bookmark && <Bookmark />}
         {profile && <ProfileIcon />}
-        {search && <SearchTool />}
+        {search && <SearchTool open={searchOpen} onToggle={() => setSearchOpen(prev => !prev)} />}
       </div>
 
     </header>
