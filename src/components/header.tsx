@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({title, search, welcome, profile, back, b
   const router = useRouter();
 
   return (
-    <header className="flex items-center justify-between p-4">
+    <header className="flex items-center justify-between p-4 h-16">
       {welcome && <p>Welcome back, <h2>{welcome}</h2></p>}
       {back && (
         <button onClick={() => router.history.back()}>
