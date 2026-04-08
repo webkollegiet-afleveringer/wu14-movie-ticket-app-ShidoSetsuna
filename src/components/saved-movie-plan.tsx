@@ -1,4 +1,4 @@
-const SavedMoviePlan = () => {
+const SavedMoviePlan: React.FC = () => {
   return <div>SavedMoviePlan</div>;
 };
 

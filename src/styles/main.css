@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+    /* Main background color */
+    --color-bg: #1B1E25;
+    /* Main text color */
+    --color-text: #FFFFFF;
+    /* Text that needs to be gray */
+    --color-text-secondary: #BABFC9;
+    /* Used for 'see more' links & synopsis text */
+    --color-text-dark: #696D74;
+    /* Used for text elements that need to be blue */
+    --color-text-blue: #54A8E5;
+    /* For components with a dark gray bg */
+    --color-component-bg: #696D74;
+    /* Used for Button & confirmation popup as well as for links */
+    --color-accent: #54A8E5;
+    /* Used for seats taken & logout, delete account */
+    --color-warn: #EB5757;
+    /* Used for input fields/dropdowns elements */
+    --color-stroke: #B2B5BB;
+    /* Used for nav buttons */
+    --color-nav-buttons: #636882;
+}

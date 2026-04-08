@@ -9,159 +9,235 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as SavedPlanRouteImport } from './routes/saved-plan'
-import { Route as ExploreRouteImport } from './routes/explore'
-import { Route as DetailsRouteImport } from './routes/details'
-import { Route as Checkout_flowRouteImport } from './routes/checkout_flow'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as DetailsRouteRouteImport } from './routes/details/route'
+import { Route as Checkout_flowRouteRouteImport } from './routes/checkout_flow/route'
+import { Route as DetailsIndexRouteImport } from './routes/details/index'
+import { Route as Checkout_flowIndexRouteImport } from './routes/checkout_flow/index'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
+import { Route as LayoutSavedRouteImport } from './routes/_layout/saved'
+import { Route as LayoutExploreRouteImport } from './routes/_layout/explore'
 
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
+const LayoutRoute = LayoutRouteImport.update({
+  id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SavedPlanRoute = SavedPlanRouteImport.update({
-  id: '/saved-plan',
-  path: '/saved-plan',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExploreRoute = ExploreRouteImport.update({
-  id: '/explore',
-  path: '/explore',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DetailsRoute = DetailsRouteImport.update({
+const DetailsRouteRoute = DetailsRouteRouteImport.update({
   id: '/details',
   path: '/details',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Checkout_flowRoute = Checkout_flowRouteImport.update({
+const Checkout_flowRouteRoute = Checkout_flowRouteRouteImport.update({
   id: '/checkout_flow',
   path: '/checkout_flow',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const DetailsIndexRoute = DetailsIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => DetailsRouteRoute,
+} as any)
+const Checkout_flowIndexRoute = Checkout_flowIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => Checkout_flowRouteRoute,
+} as any)
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutSavedRoute = LayoutSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutExploreRoute = LayoutExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/checkout_flow': typeof Checkout_flowRoute
-  '/details': typeof DetailsRoute
-  '/explore': typeof ExploreRoute
-  '/saved-plan': typeof SavedPlanRoute
-  '/settings': typeof SettingsRoute
+  '/checkout_flow': typeof Checkout_flowRouteRouteWithChildren
+  '/details': typeof DetailsRouteRouteWithChildren
+  '/': typeof LayoutIndexRoute
+  '/explore': typeof LayoutExploreRoute
+  '/saved': typeof LayoutSavedRoute
+  '/settings': typeof LayoutSettingsRoute
+  '/checkout_flow/': typeof Checkout_flowIndexRoute
+  '/details/': typeof DetailsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/checkout_flow': typeof Checkout_flowRoute
-  '/details': typeof DetailsRoute
-  '/explore': typeof ExploreRoute
-  '/saved-plan': typeof SavedPlanRoute
-  '/settings': typeof SettingsRoute
+  '/explore': typeof LayoutExploreRoute
+  '/saved': typeof LayoutSavedRoute
+  '/settings': typeof LayoutSettingsRoute
+  '/': typeof LayoutIndexRoute
+  '/checkout_flow': typeof Checkout_flowIndexRoute
+  '/details': typeof DetailsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/checkout_flow': typeof Checkout_flowRoute
-  '/details': typeof DetailsRoute
-  '/explore': typeof ExploreRoute
-  '/saved-plan': typeof SavedPlanRoute
-  '/settings': typeof SettingsRoute
+  '/checkout_flow': typeof Checkout_flowRouteRouteWithChildren
+  '/details': typeof DetailsRouteRouteWithChildren
+  '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/explore': typeof LayoutExploreRoute
+  '/_layout/saved': typeof LayoutSavedRoute
+  '/_layout/settings': typeof LayoutSettingsRoute
+  '/_layout/': typeof LayoutIndexRoute
+  '/checkout_flow/': typeof Checkout_flowIndexRoute
+  '/details/': typeof DetailsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/checkout_flow'
     | '/details'
+    | '/'
     | '/explore'
-    | '/saved-plan'
+    | '/saved'
     | '/settings'
+    | '/checkout_flow/'
+    | '/details/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/checkout_flow'
-    | '/details'
-    | '/explore'
-    | '/saved-plan'
-    | '/settings'
+  to: '/explore' | '/saved' | '/settings' | '/' | '/checkout_flow' | '/details'
   id:
     | '__root__'
-    | '/'
     | '/checkout_flow'
     | '/details'
-    | '/explore'
-    | '/saved-plan'
-    | '/settings'
+    | '/_layout'
+    | '/_layout/explore'
+    | '/_layout/saved'
+    | '/_layout/settings'
+    | '/_layout/'
+    | '/checkout_flow/'
+    | '/details/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  Checkout_flowRoute: typeof Checkout_flowRoute
-  DetailsRoute: typeof DetailsRoute
-  ExploreRoute: typeof ExploreRoute
-  SavedPlanRoute: typeof SavedPlanRoute
-  SettingsRoute: typeof SettingsRoute
+  Checkout_flowRouteRoute: typeof Checkout_flowRouteRouteWithChildren
+  DetailsRouteRoute: typeof DetailsRouteRouteWithChildren
+  LayoutRoute: typeof LayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/saved-plan': {
-      id: '/saved-plan'
-      path: '/saved-plan'
-      fullPath: '/saved-plan'
-      preLoaderRoute: typeof SavedPlanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/explore': {
-      id: '/explore'
-      path: '/explore'
-      fullPath: '/explore'
-      preLoaderRoute: typeof ExploreRouteImport
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/details': {
       id: '/details'
       path: '/details'
       fullPath: '/details'
-      preLoaderRoute: typeof DetailsRouteImport
+      preLoaderRoute: typeof DetailsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkout_flow': {
       id: '/checkout_flow'
       path: '/checkout_flow'
       fullPath: '/checkout_flow'
-      preLoaderRoute: typeof Checkout_flowRouteImport
+      preLoaderRoute: typeof Checkout_flowRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/details/': {
+      id: '/details/'
+      path: '/'
+      fullPath: '/details/'
+      preLoaderRoute: typeof DetailsIndexRouteImport
+      parentRoute: typeof DetailsRouteRoute
+    }
+    '/checkout_flow/': {
+      id: '/checkout_flow/'
+      path: '/'
+      fullPath: '/checkout_flow/'
+      preLoaderRoute: typeof Checkout_flowIndexRouteImport
+      parentRoute: typeof Checkout_flowRouteRoute
+    }
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/settings': {
+      id: '/_layout/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof LayoutSettingsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/saved': {
+      id: '/_layout/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof LayoutSavedRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/explore': {
+      id: '/_layout/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof LayoutExploreRouteImport
+      parentRoute: typeof LayoutRoute
     }
   }
 }
 
+interface Checkout_flowRouteRouteChildren {
+  Checkout_flowIndexRoute: typeof Checkout_flowIndexRoute
+}
+
+const Checkout_flowRouteRouteChildren: Checkout_flowRouteRouteChildren = {
+  Checkout_flowIndexRoute: Checkout_flowIndexRoute,
+}
+
+const Checkout_flowRouteRouteWithChildren =
+  Checkout_flowRouteRoute._addFileChildren(Checkout_flowRouteRouteChildren)
+
+interface DetailsRouteRouteChildren {
+  DetailsIndexRoute: typeof DetailsIndexRoute
+}
+
+const DetailsRouteRouteChildren: DetailsRouteRouteChildren = {
+  DetailsIndexRoute: DetailsIndexRoute,
+}
+
+const DetailsRouteRouteWithChildren = DetailsRouteRoute._addFileChildren(
+  DetailsRouteRouteChildren,
+)
+
+interface LayoutRouteChildren {
+  LayoutExploreRoute: typeof LayoutExploreRoute
+  LayoutSavedRoute: typeof LayoutSavedRoute
+  LayoutSettingsRoute: typeof LayoutSettingsRoute
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutExploreRoute: LayoutExploreRoute,
+  LayoutSavedRoute: LayoutSavedRoute,
+  LayoutSettingsRoute: LayoutSettingsRoute,
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  Checkout_flowRoute: Checkout_flowRoute,
-  DetailsRoute: DetailsRoute,
-  ExploreRoute: ExploreRoute,
-  SavedPlanRoute: SavedPlanRoute,
-  SettingsRoute: SettingsRoute,
+  Checkout_flowRouteRoute: Checkout_flowRouteRouteWithChildren,
+  DetailsRouteRoute: DetailsRouteRouteWithChildren,
+  LayoutRoute: LayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

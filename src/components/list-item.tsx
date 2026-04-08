@@ -1,4 +1,4 @@
-const ListItem = () => {
+const ListItem: React.FC = () => {
   return <div>ListItem</div>;
 };
 

@@ -1,4 +1,4 @@
-const MovieMiniView = () => {
+const MovieMiniView: React.FC = () => {
   return <div>MovieMiniView</div>;
 };
 

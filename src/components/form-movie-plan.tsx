@@ -1,4 +1,4 @@
-const FormMoviePlan = () => {
+const FormMoviePlan: React.FC = () => {
   return <div>FormMoviePlan</div>;
 };
 

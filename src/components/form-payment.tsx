@@ -1,4 +1,4 @@
-const FormPayment = () => {
+const FormPayment: React.FC = () => {
   return <div>FormPayment</div>;
 };
 
