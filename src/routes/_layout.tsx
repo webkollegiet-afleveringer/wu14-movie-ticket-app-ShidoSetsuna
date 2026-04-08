@@ -1,6 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import Nav from '../components/nav'
-
 const Layout: React.FC = () => {
   return (
     <>

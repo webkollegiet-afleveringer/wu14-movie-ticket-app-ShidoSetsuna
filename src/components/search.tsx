@@ -1,5 +1,11 @@
-const Search: React.FC = () => {
-  return <div>Search</div>;
+import { Search } from 'lucide-react';
+
+const SearchTool: React.FC = () => {
+  return (
+    <div className="relative">
+      <Search />
+    </div>
+  );
 };
 
-export default Search;
+export default SearchTool;

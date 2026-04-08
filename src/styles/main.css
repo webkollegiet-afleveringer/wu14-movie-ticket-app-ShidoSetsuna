@@ -22,3 +22,10 @@
     /* Used for nav buttons */
     --color-nav-buttons: #636882;
 }
+
+#root {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Roboto', sans-serif;
+    height: 100dvh;
+}
