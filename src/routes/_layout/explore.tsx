@@ -5,5 +5,5 @@ export const Route = createFileRoute('/_layout/explore')({
 })
 
 function Explore() {
-  return <div className="p-2">Hello from Explore!</div>
+  return <div>Hello from Explore!</div>
 }
