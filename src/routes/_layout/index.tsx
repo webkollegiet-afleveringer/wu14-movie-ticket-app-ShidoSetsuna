@@ -4,6 +4,7 @@ import SearchTool from '../../components/search'
 import Slider from '../../components/slider'
 import MovieCard from '../../components/movie-card'
 import { useUpcoming } from '../../hooks/useMovies'
+import { formatReleaseDate } from '../../utils/date'
 
 export const Route = createFileRoute('/_layout/')({
   component: Index,
@@ -27,7 +28,7 @@ function Index() {
               key={movie.id}
               variant="horizontal"
               title={movie.title}
-              date={movie.release_date}
+              date={formatReleaseDate(movie.release_date)}
               posterPath={movie.poster_path}
             />
           ))}

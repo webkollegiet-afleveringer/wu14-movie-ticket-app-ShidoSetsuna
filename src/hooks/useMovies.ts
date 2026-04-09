@@ -13,7 +13,7 @@ export const useNowPlaying = () => {
   const { loading, setLoading, error, setError } = useFetchState()
 
   useEffect(() => {
-    if (nowPlaying.length > 0) return // already cached
+    if (nowPlaying.length > 0) return
     setLoading(true)
     tmdb.getNowPlaying()
       .then(res => setNowPlaying(res.results))
@@ -29,7 +29,7 @@ export const useUpcoming = () => {
   const { loading, setLoading, error, setError } = useFetchState()
 
   useEffect(() => {
-    if (upcoming.length > 0) return // already cached
+    if (upcoming.length > 0) return
     setLoading(true)
     tmdb.getUpcoming()
       .then(res => setUpcoming(res.results))
@@ -40,12 +40,28 @@ export const useUpcoming = () => {
   return { movies: upcoming, loading, error }
 }
 
+export const useReleasingSoon = () => {
+  const { releasingSoon, setReleasingSoon } = useMovieStore()
+  const { loading, setLoading, error, setError } = useFetchState()
+
+  useEffect(() => {
+    if (releasingSoon.length > 0) return
+    setLoading(true)
+    tmdb.getReleasingSoon()
+      .then(res => setReleasingSoon(res.results))
+      .catch(() => setError('Failed to load releasing soon'))
+      .finally(() => setLoading(false))
+  }, [])
+
+  return { movies: releasingSoon, loading, error }
+}
+
 export const usePopular = () => {
   const { popular, setPopular } = useMovieStore()
   const { loading, setLoading, error, setError } = useFetchState()
 
   useEffect(() => {
-    if (popular.length > 0) return // already cached
+    if (popular.length > 0) return
     setLoading(true)
     tmdb.getPopular()
       .then(res => setPopular(res.results))
@@ -61,7 +77,7 @@ export const useMovieDetails = (id: number) => {
   const { loading, setLoading, error, setError } = useFetchState()
 
   useEffect(() => {
-    if (movieDetails[id]) return // already cached
+    if (movieDetails[id]) return
     setLoading(true)
     tmdb.getMovieDetails(id)
       .then(res => setMovieDetails(id, res))
@@ -70,4 +86,23 @@ export const useMovieDetails = (id: number) => {
   }, [id])
 
   return { movie: movieDetails[id] ?? null, loading, error }
+}
+
+export const useGenres = () => {
+  const { genres, setGenres } = useMovieStore()
+  const { loading, setLoading, error, setError } = useFetchState()
+
+  useEffect(() => {
+    if (genres.length > 0) return
+    setLoading(true)
+    tmdb.getGenres()
+      .then(res => setGenres(res.genres))
+      .catch(() => setError('Failed to load genres'))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const getGenreName = (id: number): string =>
+    genres.find(g => g.id === id)?.name ?? ''
+
+  return { genres, getGenreName, loading, error }
 }

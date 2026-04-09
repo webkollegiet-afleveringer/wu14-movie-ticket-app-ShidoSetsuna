@@ -1,3 +1,8 @@
+export interface Genre {
+  id: number
+  name: string
+}
+
 export interface Movie {
   id: number
   title: string
@@ -6,12 +11,14 @@ export interface Movie {
   backdrop_path: string
   release_date: string
   vote_average: number
+  vote_count: number
+  popularity: number
   genre_ids: number[]
 }
 
 export interface MovieDetails extends Movie {
   runtime: number
-  genres: { id: number; name: string }[]
+  genres: Genre[]
   tagline: string
 }
 
