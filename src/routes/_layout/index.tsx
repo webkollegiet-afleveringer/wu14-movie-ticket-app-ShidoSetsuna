@@ -9,8 +9,8 @@ export const Route = createFileRoute('/_layout/')({
 function Index() {
   return (
     <div>
-      <Header welcome="John Doe" profile/>
-      <SearchTool open={true} onToggle={() => {}} />
+      <Header welcome="John Doe" profile />
+      <SearchTool defaultOpen />
       <h3>Welcome Home!</h3>
     </div>
   )

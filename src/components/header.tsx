@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from '@tanstack/react-router';
 import SearchTool from './search';
 import ProfileIcon from './profile-icon';
-import { Bookmark, ArrowLeft } from 'lucide-react';
+import { Bookmark, ArrowLeft, Search } from 'lucide-react';
 
 interface HeaderProps {
   title?: string;
@@ -18,27 +18,39 @@ const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, 
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <header className="relative flex items-center justify-between p-4 h-16">
+    <header className="flex flex-col">
 
-      {/* Left side */}
-      <div>
-        {back && (
-          <button onClick={() => router.history.back()}>
-            <ArrowLeft />
-          </button>
-        )}
-        {welcome && <p>Welcome back, <span className="font-bold">{welcome}</span></p>}
+      {/* Top row */}
+      <div className="relative flex items-center justify-between p-4 h-16">
+
+        {/* Left side */}
+        <div>
+          {back && (
+            <button onClick={() => router.history.back()}>
+              <ArrowLeft />
+            </button>
+          )}
+          {welcome && <p>Welcome back, <span className="font-bold">{welcome}</span></p>}
+        </div>
+
+        {/* Center */}
+        {title && <h1 className="absolute left-1/2 -translate-x-1/2">{title}</h1>}
+
+        {/* Right side */}
+        <div className="flex gap-2 items-center">
+          {bookmark && <Bookmark />}
+          {profile && <ProfileIcon />}
+          {search && (
+            <button onClick={() => setSearchOpen(prev => !prev)}>
+              <Search />
+            </button>
+          )}
+        </div>
+
       </div>
 
-      {/* Center */}
-      {title && <h1 className="absolute left-1/2 -translate-x-1/2">{title}</h1>}
-
-      {/* Right side */}
-      <div className="flex gap-2 items-center">
-        {bookmark && <Bookmark />}
-        {profile && <ProfileIcon />}
-        {search && <SearchTool open={searchOpen} onToggle={() => setSearchOpen(prev => !prev)} />}
-      </div>
+      {/* Search bar — in normal flow, pushes content down */}
+      {search && searchOpen && <SearchTool />}
 
     </header>
   );

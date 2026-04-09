@@ -7,12 +7,10 @@
     --color-text: #FFFFFF;
     /* Text that needs to be gray */
     --color-text-secondary: #BABFC9;
-    /* Used for 'see more' links & synopsis text */
-    --color-text-dark: #696D74;
     /* Used for text elements that need to be blue */
     --color-text-blue: #54A8E5;
-    /* For components with a dark gray bg */
-    --color-component-bg: #696D74;
+    /* For components with a dark gray bg, 'see more' links & synopsis text */
+    --color-muted: #696D744D;
     /* Used for Button & confirmation popup as well as for links */
     --color-accent: #54A8E5;
     /* Used for seats taken & logout, delete account */
