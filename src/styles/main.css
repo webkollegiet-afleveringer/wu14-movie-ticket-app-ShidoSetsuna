@@ -21,6 +21,11 @@
     --color-nav-buttons: #636882;
 }
 
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
 #root {
     background-color: var(--color-bg);
     color: var(--color-text);
