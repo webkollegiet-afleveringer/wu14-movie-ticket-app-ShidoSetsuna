@@ -45,6 +45,7 @@ function Explore() {
             {topMovies.map(movie => (
               <MovieCard
                 key={movie.id}
+                id={movie.id}
                 variant="vertical"
                 title={movie.title}
                 rating={movie.vote_average}
@@ -57,6 +58,7 @@ function Explore() {
             {secondSlider.map(movie => (
               <MovieCard
                 key={movie.id}
+                id={movie.id}
                 variant="poster"
                 title={movie.title}
                 posterPath={movie.poster_path}

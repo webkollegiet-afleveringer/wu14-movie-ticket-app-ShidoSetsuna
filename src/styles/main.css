@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @theme {
     /* Main background color */
@@ -29,6 +30,6 @@
 #root {
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: 'Roboto', sans-serif;
-    height: 100dvh;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100dvh;
 }

@@ -26,6 +26,7 @@ function Index() {
           {movies.map(movie => (
             <MovieCard
               key={movie.id}
+              id={movie.id}
               variant="horizontal"
               title={movie.title}
               date={formatReleaseDate(movie.release_date)}

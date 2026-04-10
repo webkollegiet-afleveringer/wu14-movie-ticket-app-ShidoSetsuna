@@ -1,5 +1,15 @@
 import type { TMDBResponse, MovieDetails, Genre } from './types'
 
+export interface Credits {
+  crew: { job: string; name: string }[]
+  cast: { name: string; character: string; profile_path: string | null }[]
+}
+
+export interface MovieImages {
+  backdrops: { file_path: string }[]
+  posters: { file_path: string }[]
+}
+
 const BASE_URL = 'https://api.themoviedb.org/3'
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY
 export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
@@ -44,6 +54,15 @@ export const tmdb = {
 
   getMovieDetails: (id: number): Promise<MovieDetails> =>
     fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`, { headers }).then(r => r.json()),
+
+  getMovieCredits: (id: number): Promise<Credits> =>
+    fetch(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`, { headers }).then(r => r.json()),
+
+  getMovieImages: (id: number): Promise<MovieImages> =>
+    fetch(`${BASE_URL}/movie/${id}/images?api_key=${API_KEY}`, { headers }).then(r => r.json()),
+
+  getSimilar: (id: number): Promise<TMDBResponse> =>
+    fetch(`${BASE_URL}/movie/${id}/similar?api_key=${API_KEY}&language=en-US`, { headers }).then(r => r.json()),
 
   getGenres: (): Promise<{ genres: Genre[] }> =>
     fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`, { headers }).then(r => r.json()),

@@ -1,10 +1,12 @@
+import { Link } from '@tanstack/react-router';
 import { IMAGE_BASE_URL } from '../api/tmdb';
 import { Star } from 'lucide-react';
 
-type MovieCardVariant = 'horizontal' | 'vertical' | 'poster'
+type MovieCardVariant = 'horizontal' | 'vertical' | 'poster' | 'image'
 
 interface MovieCardProps {
   variant: MovieCardVariant
+  id?: number
   title?: string
   date?: string
   rating?: number
@@ -12,8 +14,19 @@ interface MovieCardProps {
   genre?: string
 }
 
-const HorizontalCard: React.FC<MovieCardProps> = ({ title, date, posterPath }) => (
-  <div className="min-w-70 snap-start">
+const CardWrapper: React.FC<{ id?: number; className: string; children: React.ReactNode }> = ({ id, className, children }) => {
+  if (id) {
+    return (
+      <Link to="/details" search={{ id }} className={className}>
+        {children}
+      </Link>
+    )
+  }
+  return <div className={className}>{children}</div>
+}
+
+const HorizontalCard: React.FC<MovieCardProps> = ({ id, title, date, posterPath }) => (
+  <CardWrapper id={id} className="min-w-70 snap-start">
     <img
       src={posterPath ? `${IMAGE_BASE_URL}${posterPath}` : '/placeholder.jpg'}
       alt={title}
@@ -21,11 +34,11 @@ const HorizontalCard: React.FC<MovieCardProps> = ({ title, date, posterPath }) =
     />
     <h3 className="mt-2 font-bold text-text line-clamp-2">{title}</h3>
     <p className="text-text-secondary text-sm">{date}</p>
-  </div>
+  </CardWrapper>
 )
 
-const VerticalCard: React.FC<MovieCardProps> = ({ title, rating, posterPath }) => (
-  <div className="min-w-40 snap-start">
+const VerticalCard: React.FC<MovieCardProps> = ({ id, title, rating, posterPath }) => (
+  <CardWrapper id={id} className="min-w-40 snap-start">
     <img
       src={posterPath ? `${IMAGE_BASE_URL}${posterPath}` : '/placeholder.jpg'}
       alt={title}
@@ -45,11 +58,11 @@ const VerticalCard: React.FC<MovieCardProps> = ({ title, rating, posterPath }) =
         </div>
       )}
     </div>
-  </div>
+  </CardWrapper>
 )
 
-const PosterCard: React.FC<MovieCardProps> = ({ title, posterPath, genre }) => (
-  <div className="min-w-30 snap-start">
+const PosterCard: React.FC<MovieCardProps> = ({ id, title, posterPath, genre }) => (
+  <CardWrapper id={id} className="min-w-30 snap-start">
     <img
       src={posterPath ? `${IMAGE_BASE_URL}${posterPath}` : '/placeholder.jpg'}
       alt={title}
@@ -59,7 +72,18 @@ const PosterCard: React.FC<MovieCardProps> = ({ title, posterPath, genre }) => (
       <h3 className="font-bold text-text line-clamp-2 mb-auto">{title}</h3>
       {genre && <p className="text-text-secondary text-sm">{genre}</p>}
     </div>
-  </div>
+  </CardWrapper>
+)
+
+// Details hero — image only, no text
+const ImageCard: React.FC<MovieCardProps> = ({ id, title, posterPath }) => (
+  <CardWrapper id={id} className="min-w-64 snap-start">
+    <img
+      src={posterPath ? `${IMAGE_BASE_URL}${posterPath}` : '/placeholder.jpg'}
+      alt={title}
+      className="w-full h-80 object-cover rounded-2xl"
+    />
+  </CardWrapper>
 )
 
 const MovieCard: React.FC<MovieCardProps> = (props) => {
@@ -67,6 +91,7 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
     case 'horizontal': return <HorizontalCard {...props} />
     case 'vertical':   return <VerticalCard {...props} />
     case 'poster':     return <PosterCard {...props} />
+    case 'image':      return <ImageCard {...props} />
   }
 }
 

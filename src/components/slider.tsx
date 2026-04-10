@@ -6,7 +6,7 @@ interface SliderProps {
 
 const Slider: React.FC<SliderProps> = ({ title, seeMore, children }) => {
   return (
-    <div className="mb-6">
+    <div>
 
       {/* Section header */}
       {(title || seeMore) && (
