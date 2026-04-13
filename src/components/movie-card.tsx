@@ -75,7 +75,7 @@ const PosterCard: React.FC<MovieCardProps> = ({ id, title, posterPath, genre }) 
   </CardWrapper>
 )
 
-// Details hero — image only, no text
+// Details hero
 const ImageCard: React.FC<MovieCardProps> = ({ id, title, posterPath }) => (
   <CardWrapper id={id} className="min-w-64 snap-start">
     <img
