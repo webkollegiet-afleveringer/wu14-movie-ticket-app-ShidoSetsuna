@@ -3,7 +3,9 @@ import Header from '../../components/header'
 import SearchTool from '../../components/search'
 import Slider from '../../components/slider'
 import MovieCard from '../../components/movie-card'
+import ListView from '../../components/list-view'
 import { useUpcoming } from '../../hooks/useMovies'
+import { useCinemas } from '../../hooks/useCinemas'
 import { formatReleaseDate } from '../../utils/date'
 
 export const Route = createFileRoute('/_layout/')({
@@ -12,6 +14,7 @@ export const Route = createFileRoute('/_layout/')({
 
 function Index() {
   const { movies, loading, error } = useUpcoming()
+  const { cinemas, isDefault, loading: loadingCinemas, error: errorCinemas } = useCinemas()
 
   return (
     <div>
@@ -34,6 +37,13 @@ function Index() {
             />
           ))}
         </Slider>
+      )}
+
+      {loadingCinemas && <p className="text-text-secondary px-4">Finding cinemas...</p>}
+      {errorCinemas && <p className="text-warn px-4">{errorCinemas}</p>}
+
+      {!loadingCinemas && !errorCinemas && (
+        <ListView cinemas={cinemas} isDefault={isDefault} />
       )}
     </div>
   )
