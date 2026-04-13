@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as SelectSeatsRouteRouteImport } from './routes/select-seats/route'
 import { Route as DetailsRouteRouteImport } from './routes/details/route'
 import { Route as Checkout_flowRouteRouteImport } from './routes/checkout_flow/route'
+import { Route as SelectSeatsIndexRouteImport } from './routes/select-seats/index'
 import { Route as DetailsIndexRouteImport } from './routes/details/index'
 import { Route as Checkout_flowIndexRouteImport } from './routes/checkout_flow/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
@@ -23,6 +25,11 @@ const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SelectSeatsRouteRoute = SelectSeatsRouteRouteImport.update({
+  id: '/select-seats',
+  path: '/select-seats',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DetailsRouteRoute = DetailsRouteRouteImport.update({
   id: '/details',
   path: '/details',
@@ -32,6 +39,11 @@ const Checkout_flowRouteRoute = Checkout_flowRouteRouteImport.update({
   id: '/checkout_flow',
   path: '/checkout_flow',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SelectSeatsIndexRoute = SelectSeatsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SelectSeatsRouteRoute,
 } as any)
 const DetailsIndexRoute = DetailsIndexRouteImport.update({
   id: '/',
@@ -67,12 +79,14 @@ const LayoutExploreRoute = LayoutExploreRouteImport.update({
 export interface FileRoutesByFullPath {
   '/checkout_flow': typeof Checkout_flowRouteRouteWithChildren
   '/details': typeof DetailsRouteRouteWithChildren
+  '/select-seats': typeof SelectSeatsRouteRouteWithChildren
   '/': typeof LayoutIndexRoute
   '/explore': typeof LayoutExploreRoute
   '/saved': typeof LayoutSavedRoute
   '/settings': typeof LayoutSettingsRoute
   '/checkout_flow/': typeof Checkout_flowIndexRoute
   '/details/': typeof DetailsIndexRoute
+  '/select-seats/': typeof SelectSeatsIndexRoute
 }
 export interface FileRoutesByTo {
   '/explore': typeof LayoutExploreRoute
@@ -81,11 +95,13 @@ export interface FileRoutesByTo {
   '/': typeof LayoutIndexRoute
   '/checkout_flow': typeof Checkout_flowIndexRoute
   '/details': typeof DetailsIndexRoute
+  '/select-seats': typeof SelectSeatsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/checkout_flow': typeof Checkout_flowRouteRouteWithChildren
   '/details': typeof DetailsRouteRouteWithChildren
+  '/select-seats': typeof SelectSeatsRouteRouteWithChildren
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/explore': typeof LayoutExploreRoute
   '/_layout/saved': typeof LayoutSavedRoute
@@ -93,24 +109,35 @@ export interface FileRoutesById {
   '/_layout/': typeof LayoutIndexRoute
   '/checkout_flow/': typeof Checkout_flowIndexRoute
   '/details/': typeof DetailsIndexRoute
+  '/select-seats/': typeof SelectSeatsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/checkout_flow'
     | '/details'
+    | '/select-seats'
     | '/'
     | '/explore'
     | '/saved'
     | '/settings'
     | '/checkout_flow/'
     | '/details/'
+    | '/select-seats/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/explore' | '/saved' | '/settings' | '/' | '/checkout_flow' | '/details'
+  to:
+    | '/explore'
+    | '/saved'
+    | '/settings'
+    | '/'
+    | '/checkout_flow'
+    | '/details'
+    | '/select-seats'
   id:
     | '__root__'
     | '/checkout_flow'
     | '/details'
+    | '/select-seats'
     | '/_layout'
     | '/_layout/explore'
     | '/_layout/saved'
@@ -118,11 +145,13 @@ export interface FileRouteTypes {
     | '/_layout/'
     | '/checkout_flow/'
     | '/details/'
+    | '/select-seats/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   Checkout_flowRouteRoute: typeof Checkout_flowRouteRouteWithChildren
   DetailsRouteRoute: typeof DetailsRouteRouteWithChildren
+  SelectSeatsRouteRoute: typeof SelectSeatsRouteRouteWithChildren
   LayoutRoute: typeof LayoutRouteWithChildren
 }
 
@@ -133,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof LayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/select-seats': {
+      id: '/select-seats'
+      path: '/select-seats'
+      fullPath: '/select-seats'
+      preLoaderRoute: typeof SelectSeatsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/details': {
@@ -148,6 +184,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/checkout_flow'
       preLoaderRoute: typeof Checkout_flowRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/select-seats/': {
+      id: '/select-seats/'
+      path: '/'
+      fullPath: '/select-seats/'
+      preLoaderRoute: typeof SelectSeatsIndexRouteImport
+      parentRoute: typeof SelectSeatsRouteRoute
     }
     '/details/': {
       id: '/details/'
@@ -217,6 +260,17 @@ const DetailsRouteRouteWithChildren = DetailsRouteRoute._addFileChildren(
   DetailsRouteRouteChildren,
 )
 
+interface SelectSeatsRouteRouteChildren {
+  SelectSeatsIndexRoute: typeof SelectSeatsIndexRoute
+}
+
+const SelectSeatsRouteRouteChildren: SelectSeatsRouteRouteChildren = {
+  SelectSeatsIndexRoute: SelectSeatsIndexRoute,
+}
+
+const SelectSeatsRouteRouteWithChildren =
+  SelectSeatsRouteRoute._addFileChildren(SelectSeatsRouteRouteChildren)
+
 interface LayoutRouteChildren {
   LayoutExploreRoute: typeof LayoutExploreRoute
   LayoutSavedRoute: typeof LayoutSavedRoute
@@ -237,6 +291,7 @@ const LayoutRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   Checkout_flowRouteRoute: Checkout_flowRouteRouteWithChildren,
   DetailsRouteRoute: DetailsRouteRouteWithChildren,
+  SelectSeatsRouteRoute: SelectSeatsRouteRouteWithChildren,
   LayoutRoute: LayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport
