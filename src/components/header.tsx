@@ -30,7 +30,12 @@ const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, 
               <ArrowLeft />
             </button>
           )}
-          {welcome && <p>Welcome back, <span className="font-bold">{welcome}</span></p>}
+          {welcome && (
+            <div className="flex flex-col leading-tight">
+              <span>Welcome back,</span>
+              <span className="font-bold">{welcome}</span>
+            </div>
+          )}
         </div>
 
         {/* Center */}
@@ -49,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, 
 
       </div>
 
-      {/* Search bar — in normal flow, pushes content down */}
+      {/* Search bar */}
       {search && searchOpen && <SearchTool />}
 
     </header>
