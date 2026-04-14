@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { MovieDetails } from '../api/types'
 
 interface SavedStore {
@@ -7,17 +8,25 @@ interface SavedStore {
   isSaved: (id: number) => boolean
 }
 
-export const useSavedStore = create<SavedStore>((set, get) => ({
-  savedMovies: [],
+export const useSavedStore = create<SavedStore>()(
+  persist(
+    (set, get) => ({
+      savedMovies: [],
 
-  toggleSaved: (movie) => {
-    const already = get().savedMovies.some(m => m.id === movie.id)
-    set({
-      savedMovies: already
-        ? get().savedMovies.filter(m => m.id !== movie.id)
-        : [...get().savedMovies, movie]
-    })
-  },
+      toggleSaved: (movie) => {
+        const already = get().savedMovies.some(m => m.id === movie.id)
+        set({
+          savedMovies: already
+            ? get().savedMovies.filter(m => m.id !== movie.id)
+            : [...get().savedMovies, movie]
+        })
+      },
 
-  isSaved: (id) => get().savedMovies.some(m => m.id === id),
-}))
+      isSaved: (id) => get().savedMovies.some(m => m.id === id),
+    }),
+    {
+      name: 'saved-movies',
+      partialize: state => ({ savedMovies: state.savedMovies }),
+    }
+  )
+)
