@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ChevronRight, User, CreditCard, Trash2, Bell, Ticket, LogOut } from 'lucide-react'
 import Header from '../../components/header'
 import ListItem from '../../components/list-item'
+import ProfileIcon from '../../components/profile-icon'
 
 export const Route = createFileRoute('/_layout/settings')({
   component: RouteComponent,
@@ -15,9 +16,7 @@ function RouteComponent() {
       <div className="px-4">
 
         <button className="flex items-center gap-3 w-full py-4">
-          <div className="w-12 h-12 rounded-lg bg-muted overflow-hidden shrink-0">
-            <div className="w-full h-full bg-component-bg" />
-          </div>
+          <ProfileIcon />
           <div className="flex-1 text-left">
             <p className="text-text font-semibold">Miles Morales</p>
             <p className="text-text-secondary text-sm">Film Hunter</p>

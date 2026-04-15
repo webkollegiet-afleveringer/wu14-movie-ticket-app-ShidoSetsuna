@@ -75,7 +75,7 @@ function RouteComponent() {
 
       {isReleased && (
         <div className="fixed bottom-0 left-0 right-0 p-4 w-full">
-          <Button title='Book Ticket' to={`/book/${id}`} />
+          <Button title='Book Ticket' to={`/select-seats?movieId=${id}`} />
         </div>
       )}
     </div>
