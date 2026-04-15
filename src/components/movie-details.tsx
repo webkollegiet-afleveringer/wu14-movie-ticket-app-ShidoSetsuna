@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Star } from 'lucide-react'
-import { IMAGE_BASE_URL } from '../api/tmdb'
+import MovieTags from './movie-tags'
 
 interface MovieDetailsProps {
   title: string
@@ -23,9 +23,6 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
   const [expanded, setExpanded] = useState(false)
   const isLong = overview.length > 150
 
-  const hours = Math.floor(runtime / 60)
-  const minutes = runtime % 60
-
   return (
     <div className="px-4 pt-4">
 
@@ -38,18 +35,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
         <span className="text-text text-sm font-semibold">{(rating / 2).toFixed(1)}</span>
       </div>
 
-      {/* Genres */}
-      <div className="flex gap-2 mt-3 flex-wrap">
-        {genres.map(genre => (
-          <span
-            key={genre}
-            className="px-3 py-1 rounded-lg text-text-secondary text-sm bg-[#252932]"
-          >
-            {genre}
-          </span>
-        ))}
-        <span className="px-3 py-1 rounded-lg text-text-secondary text-sm bg-[#252932]">{hours}h {minutes}m</span> 
-      </div>
+      <MovieTags genres={genres} runtime={runtime} />
 
       {/* Synopsis */}
       <div className="mt-4">
