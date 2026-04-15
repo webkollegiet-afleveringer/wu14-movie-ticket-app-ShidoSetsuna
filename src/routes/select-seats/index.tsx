@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { ArrowLeft } from 'lucide-react'
+import Header from '../../components/header'
 import SeatPicker from '../../components/seat-picker'
 
 const CINEMAS = ['Empire XXI Yogyakarta', 'Viva Cinema', 'CGV Grand Indonesia', 'Cinepolis Lippo Mall']
@@ -41,12 +41,7 @@ function RouteComponent() {
 
   return (
     <div className="pb-24">
-      <header className="relative flex items-center justify-between p-4 h-16">
-        <button onClick={() => history.back()}>
-          <ArrowLeft size={22} className="text-text" />
-        </button>
-        <h1 className="absolute left-1/2 -translate-x-1/2 text-text font-bold">Select Seats</h1>
-      </header>
+      <Header back title="Select Seats" />
 
       <div className="px-4 flex flex-col gap-3 mb-4">
         <div>

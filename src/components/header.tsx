@@ -11,9 +11,11 @@ interface HeaderProps {
   profile?: boolean;
   back?: boolean;
   bookmark?: boolean;
+  bookmarked?: boolean;
+  onBookmark?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, bookmark }) => {
+const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, bookmark, bookmarked, onBookmark }) => {
   const router = useRouter();
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -43,7 +45,11 @@ const Header: React.FC<HeaderProps> = ({ title, search, welcome, profile, back, 
 
         {/* Right side */}
         <div className="flex gap-2 items-center">
-          {bookmark && <Bookmark />}
+          {bookmark && (
+            <button onClick={onBookmark}>
+              <Bookmark size={22} className={bookmarked ? 'text-accent fill-accent' : 'text-text'} />
+            </button>
+          )}
           {profile && <ProfileIcon />}
           {search && (
             <button onClick={() => setSearchOpen(prev => !prev)}>

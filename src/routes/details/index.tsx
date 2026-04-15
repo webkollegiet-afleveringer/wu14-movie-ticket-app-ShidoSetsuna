@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Bookmark } from 'lucide-react'
 import Header from '../../components/header'
 import Slider from '../../components/slider'
 import MovieDetails from '../../components/movie-details'
@@ -37,19 +36,13 @@ function RouteComponent() {
   return (
     <div className="pb-24">
 
-      {/* Header with working bookmark */}
-      <header className="relative flex items-center justify-between p-4 h-16">
-        <button onClick={() => history.back()}>
-          <span className="text-text text-xl">{'<'}</span>
-        </button>
-        <h1 className="absolute left-1/2 -translate-x-1/2 text-text font-bold">Details Movie</h1>
-        <button onClick={() => toggleSaved(movie)}>
-          <Bookmark
-            size={22}
-            className={saved ? 'text-accent fill-accent' : 'text-text'}
-          />
-        </button>
-      </header>
+      <Header
+        back
+        title="Details Movie"
+        bookmark
+        bookmarked={saved}
+        onBookmark={() => toggleSaved(movie)}
+      />
 
       <Slider>
         {images.map((path, i) => (

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { ArrowLeft } from 'lucide-react'
+import Header from '../../components/header'
 import Slider from '../../components/slider'
 import Ticket from '../../components/ticket'
 import ConfirmationPopup from '../../components/confirmation-popup'
@@ -27,12 +27,7 @@ function RouteComponent() {
 
   return (
     <div className="pb-24">
-      <header className="relative flex items-center justify-between p-4 h-16">
-        <button onClick={() => history.back()}>
-          <ArrowLeft size={22} className="text-text" />
-        </button>
-        <h1 className="absolute left-1/2 -translate-x-1/2 text-text font-bold">E-Ticket</h1>
-      </header>
+      <Header back title="E-Ticket" />
 
       <div className="px-4 mb-6">
         <h2 className="text-text font-bold text-base mb-2">Instruction</h2>
