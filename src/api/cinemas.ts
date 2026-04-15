@@ -1,83 +1,57 @@
 export interface Cinema {
   id: number
   name: string
-  lat: number
-  lon: number
-  distance: number // in kilometers
-  address?: string
+  distance: number
+  address: string
+  rating: number
+  closingTime: string
+  logo: string
 }
 
-export interface LocationResult {
-  lat: number
-  lon: number
-  isDefault: boolean
-}
-
-// Default location: Copenhagen
-const DEFAULT_LOCATION = { lat: 55.6761, lon: 12.5683 }
-
-const getDistanceKm = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371
-  const dLat = ((lat2 - lat1) * Math.PI) / 180
-  const dLon = ((lon2 - lon1) * Math.PI) / 180
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-  return Math.round(R * c * 10) / 10
-}
-
-export const getUserLocation = (): Promise<LocationResult> => {
-  return new Promise((resolve) => {
-    if (!navigator.geolocation) {
-      resolve({ ...DEFAULT_LOCATION, isDefault: true })
-      return
-    }
-    navigator.geolocation.getCurrentPosition(
-      (position) => resolve({
-        lat: position.coords.latitude,
-        lon: position.coords.longitude,
-        isDefault: false,
-      }),
-      () => resolve({ ...DEFAULT_LOCATION, isDefault: true })
-    )
-  })
-}
-
-export const getNearbyCinemas = async (lat: number, lon: number, radiusMeters = 5000): Promise<Cinema[]> => {
-  const url = `https://nominatim.openstreetmap.org/search?` + new URLSearchParams({
-    q: 'cinema',
-    format: 'json',
-    limit: '10',
-    viewbox: [
-      lon - 0.1, lat + 0.1,
-      lon + 0.1, lat - 0.1,
-    ].join(','),
-    bounded: '1',
-    addressdetails: '1',
-  })
-
-  const response = await fetch(url, {
-    headers: { 'Accept-Language': 'en' }
-  })
-
-  if (!response.ok) throw new Error(`Nominatim error: ${response.status}`)
-
-  const data = await response.json()
-
-  return data
-    .map((el: any) => ({
-      id: el.place_id,
-      name: el.name || el.display_name.split(',')[0],
-      lat: parseFloat(el.lat),
-      lon: parseFloat(el.lon),
-      distance: getDistanceKm(lat, lon, parseFloat(el.lat), parseFloat(el.lon)),
-      address: el.address
-        ? [el.address.road, el.address.house_number].filter(Boolean).join(' ')
-        : undefined,
-    }))
-    .sort((a: Cinema, b: Cinema) => a.distance - b.distance)
-}
+export const CINEMAS: Cinema[] = [
+  {
+    id: 1,
+    name: 'Empire XXI Yogyakarta',
+    distance: 1.2,
+    address: 'Jl. Magelang KM 6',
+    rating: 4.5,
+    closingTime: '11:00 PM',
+    logo: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=100&h=100&fit=crop',
+  },
+  {
+    id: 2,
+    name: 'Viva Cinema',
+    distance: 2.8,
+    address: 'Hartono Mall, Jl. Ring Road',
+    rating: 4.2,
+    closingTime: '10:30 PM',
+    logo: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=100&h=100&fit=crop',
+  },
+  {
+    id: 3,
+    name: 'CGV Grand Indonesia',
+    distance: 3.5,
+    address: 'Grand Indonesia Mall, 8th Floor',
+    rating: 4.7,
+    closingTime: '11:30 PM',
+    logo: 'https://images.unsplash.com/photo-1595769816263-9b910be24d5f?w=100&h=100&fit=crop',
+  },
+  {
+    id: 4,
+    name: 'Cinepolis Lippo Mall',
+    distance: 5.1,
+    address: 'Lippo Mall Kuta, 3rd Floor',
+    rating: 4.0,
+    closingTime: '10:00 PM',
+    logo: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=100&h=100&fit=crop',
+  },
+  {
+    id: 5,
+    name: 'Plaza Cinema',
+    distance: 6.3,
+    address: 'Ambarukmo Plaza, 5th Floor',
+    rating: 3.8,
+    closingTime: '10:00 PM',
+    logo: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=100&h=100&fit=crop',
+  },
+]

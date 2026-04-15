@@ -3,10 +3,9 @@ import type { Cinema } from '../api/cinemas'
 
 interface ListViewProps {
   cinemas: Cinema[]
-  isDefault?: boolean
 }
 
-const ListView: React.FC<ListViewProps> = ({ cinemas, isDefault }) => {
+const ListView: React.FC<ListViewProps> = ({ cinemas }) => {
   return (
     <div className="px-4 mt-4">
 
@@ -15,18 +14,15 @@ const ListView: React.FC<ListViewProps> = ({ cinemas, isDefault }) => {
         <button className="text-text-secondary text-sm">See all</button>
       </div>
 
-      {isDefault && (
-        <p className="text-text-secondary text-xs mb-2">
-          Showing cinemas near Copenhagen — enable location for results near you.
-        </p>
-      )}
-
       <div className="divide-y divide-muted">
         {cinemas.map(cinema => (
           <MovieMiniView
             key={cinema.id}
             name={cinema.name}
             distance={cinema.distance}
+            rating={cinema.rating}
+            closingTime={cinema.closingTime}
+            logo={cinema.logo}
           />
         ))}
       </div>

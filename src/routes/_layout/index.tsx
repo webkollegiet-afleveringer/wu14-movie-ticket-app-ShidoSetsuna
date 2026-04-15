@@ -14,7 +14,7 @@ export const Route = createFileRoute('/_layout/')({
 
 function Index() {
   const { movies, loading, error } = useUpcoming()
-  const { cinemas, isDefault, loading: loadingCinemas, error: errorCinemas } = useCinemas()
+  const { cinemas } = useCinemas()
 
   return (
     <div>
@@ -39,12 +39,7 @@ function Index() {
         </Slider>
       )}
 
-      {loadingCinemas && <p className="text-text-secondary px-4">Finding cinemas...</p>}
-      {errorCinemas && <p className="text-warn px-4">{errorCinemas}</p>}
-
-      {!loadingCinemas && !errorCinemas && (
-        <ListView cinemas={cinemas} isDefault={isDefault} />
-      )}
+      <ListView cinemas={cinemas} />
     </div>
   )
 }
