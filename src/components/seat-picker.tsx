@@ -13,8 +13,25 @@ const SeatPicker: React.FC<SeatPickerProps> = ({ selectedSeats, onToggleSeat }) 
   return (
     <div>
       {/* Screen curve */}
-      <div className="flex justify-center mb-6">
-        <div className="w-64 h-4 rounded-b-full bg-accent shadow-xl shadow-accent" />
+      <div className="flex justify-center mb-8">
+        <svg viewBox="0 0 300 80" className="w-72" fill="none">
+          <defs>
+            <linearGradient id="screen-fade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M10 30 Q150 -5 290 30 L300 80 L-00 80 Z"
+            fill="url(#screen-fade)"
+          />
+          <path
+            d="M10 30 Q150 -5 290 30"
+            stroke="var(--color-accent)"
+            strokeWidth="3.5"
+            strokeLinecap="square"
+          />
+        </svg>
       </div>
 
 
