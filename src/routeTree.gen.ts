@@ -17,6 +17,7 @@ import { Route as SelectSeatsIndexRouteImport } from './routes/select-seats/inde
 import { Route as DetailsIndexRouteImport } from './routes/details/index'
 import { Route as Checkout_flowIndexRouteImport } from './routes/checkout_flow/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as Checkout_flowETicketRouteImport } from './routes/checkout_flow/e-ticket'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
 import { Route as LayoutSavedRouteImport } from './routes/_layout/saved'
 import { Route as LayoutExploreRouteImport } from './routes/_layout/explore'
@@ -60,6 +61,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
+const Checkout_flowETicketRoute = Checkout_flowETicketRouteImport.update({
+  id: '/e-ticket',
+  path: '/e-ticket',
+  getParentRoute: () => Checkout_flowRouteRoute,
+} as any)
 const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof LayoutExploreRoute
   '/saved': typeof LayoutSavedRoute
   '/settings': typeof LayoutSettingsRoute
+  '/checkout_flow/e-ticket': typeof Checkout_flowETicketRoute
   '/checkout_flow/': typeof Checkout_flowIndexRoute
   '/details/': typeof DetailsIndexRoute
   '/select-seats/': typeof SelectSeatsIndexRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/explore': typeof LayoutExploreRoute
   '/saved': typeof LayoutSavedRoute
   '/settings': typeof LayoutSettingsRoute
+  '/checkout_flow/e-ticket': typeof Checkout_flowETicketRoute
   '/': typeof LayoutIndexRoute
   '/checkout_flow': typeof Checkout_flowIndexRoute
   '/details': typeof DetailsIndexRoute
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/_layout/explore': typeof LayoutExploreRoute
   '/_layout/saved': typeof LayoutSavedRoute
   '/_layout/settings': typeof LayoutSettingsRoute
+  '/checkout_flow/e-ticket': typeof Checkout_flowETicketRoute
   '/_layout/': typeof LayoutIndexRoute
   '/checkout_flow/': typeof Checkout_flowIndexRoute
   '/details/': typeof DetailsIndexRoute
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/saved'
     | '/settings'
+    | '/checkout_flow/e-ticket'
     | '/checkout_flow/'
     | '/details/'
     | '/select-seats/'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/saved'
     | '/settings'
+    | '/checkout_flow/e-ticket'
     | '/'
     | '/checkout_flow'
     | '/details'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/_layout/explore'
     | '/_layout/saved'
     | '/_layout/settings'
+    | '/checkout_flow/e-ticket'
     | '/_layout/'
     | '/checkout_flow/'
     | '/details/'
@@ -213,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/checkout_flow/e-ticket': {
+      id: '/checkout_flow/e-ticket'
+      path: '/e-ticket'
+      fullPath: '/checkout_flow/e-ticket'
+      preLoaderRoute: typeof Checkout_flowETicketRouteImport
+      parentRoute: typeof Checkout_flowRouteRoute
+    }
     '/_layout/settings': {
       id: '/_layout/settings'
       path: '/settings'
@@ -238,10 +257,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface Checkout_flowRouteRouteChildren {
+  Checkout_flowETicketRoute: typeof Checkout_flowETicketRoute
   Checkout_flowIndexRoute: typeof Checkout_flowIndexRoute
 }
 
 const Checkout_flowRouteRouteChildren: Checkout_flowRouteRouteChildren = {
+  Checkout_flowETicketRoute: Checkout_flowETicketRoute,
   Checkout_flowIndexRoute: Checkout_flowIndexRoute,
 }
 
