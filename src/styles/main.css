@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+    /* Main background color */
+    --color-bg: hsl(222, 15.63%, 12.55%);
+    /* Main text color */
+    --color-text: hsl(0, 0%, 100%);
+    /* Text that needs to be gray */
+    --color-text-secondary: hsl(220, 12.2%, 75.88%);
+    /* Used for text elements that need to be blue */
+    --color-text-blue: hsl(205.24, 73.6%, 61.37%);
+    /* For components with a dark gray bg, 'see more' links & synopsis text */
+    --color-muted: hsl(218.18 4.98% 43.33% / 30%);
+    /* Used for Button & confirmation popup as well as for links */
+    --color-accent: hsl(205.24, 73.6%, 61.37%);
+    /* Used for seats taken & logout, delete account */
+    --color-warn: hsl(0, 78.72%, 63.14%);
+    /* Used for input fields/dropdowns elements */
+    --color-stroke: hsl(220, 6.21%, 71.57%);
+    /* Used for nav buttons */
+    --color-nav-buttons: hsl(230.32, 13.54%, 44.9%);
+}
+
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+#root {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100dvh;
+}
